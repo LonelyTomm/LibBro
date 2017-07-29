@@ -8,6 +8,8 @@ public class BOOK {
 	private String publisher;
 	private int quantity;
 	private String description;
+	private String author;
+	private String genre;
 	
 	public BOOK(){
 		
@@ -56,6 +58,22 @@ public class BOOK {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
+	}
+
+	public String getAuthor() {
+		return author;
+	}
+
+	public void setAuthor(String author) {
+		this.author = author;
 	}
 	
 	

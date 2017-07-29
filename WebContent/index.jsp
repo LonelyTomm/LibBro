@@ -18,7 +18,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4 text-center">
-					<a href="#" id="logo"><h1>LibBro</h1></a>
+					<a href="./index.jsp" id="logo"><h1>LibBro</h1></a>
 				</div>
 				<div class="col-md-4 text-center">
 					<form action="" class="searchlog">
@@ -40,7 +40,7 @@
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="functitems">
-						<a href="#">Add</a>
+						<a href="./add.jsp">Add</a>
 						<a href="#">Modify</a>
 						<a href="#">Query</a>
 					</div>
@@ -81,10 +81,10 @@
 					%>
 						<div class="col-md-3 text-center">
 							<div class="bookprof">
-								<a href="#">
+								<a href="http://localhost:8080/LibBro/desc?id=<%= book.getBid() %>">
 									<img src="data/book-1.png" alt="Book">
 								</a><br>
-								<a href="#" id="title"><%= book.getTitle() %></a><br>
+								<a href="http://localhost:8080/LibBro/desc?id=<%= book.getBid() %>" id="title"><%= book.getTitle() %></a><br>
 								<span><%= book.getDescription() %></span>
 							</div>
 						</div>

@@ -6,7 +6,7 @@ public class DBConnector {
 	private static Connection connection;
 	private static final String DATABASE_URL="jdbc:mysql://localhost:3306/library";
 	private static final String USERNAME="root";
-	private static final String PASSWORD="reduction1997";
+	private static final String PASSWORD="123456789";
 	
 	public DBConnector(){
 		
@@ -54,5 +54,24 @@ public class DBConnector {
 			e.printStackTrace();
 		}
 		return Itlist;
+	}
+	
+	public void addBOOK(BOOK book) {
+		PreparedStatement stmt;
+		try {
+			stmt=connection.prepareStatement("insert into book(imgpath,title,retprice,publisher,quantity,author,description,genre) values(?,?,?,?,?,?,?,?)");
+			stmt.setString(1, book.getImgpath());
+			stmt.setString(2,book.getTitle());
+			stmt.setDouble(3, book.getRetprice());
+			stmt.setString(4, book.getPublisher());
+			stmt.setInt(5, book.getQuantity());
+			stmt.setString(6, book.getAuthor());
+			stmt.setString(7, book.getDescription());
+			stmt.setString(8, book.getGenre());
+			stmt.executeUpdate();
+			stmt.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
