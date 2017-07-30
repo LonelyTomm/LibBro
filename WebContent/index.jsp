@@ -82,7 +82,7 @@
 						<div class="col-md-3 text-center">
 							<div class="bookprof">
 								<a href="http://localhost:8080/LibBro/desc?id=<%= book.getBid() %>">
-									<img src="data/book-1.png" alt="Book">
+									<img src="http://localhost:8080/LibBro/imageHandle?img=<%= book.getImgpath() %>" alt="Book">
 								</a><br>
 								<a href="http://localhost:8080/LibBro/desc?id=<%= book.getBid() %>" id="title"><%= book.getTitle() %></a><br>
 								<span><%= book.getDescription() %></span>

@@ -66,7 +66,7 @@ public class FileUpload extends HttpServlet {
 			String finPath=dirup+File.separator+finName;
 			File tgFile=new File(finPath);
 			FileUtils.copyInputStreamToFile(fileContent, tgFile);
-			book.setImgpath(finPath);
+			book.setImgpath(finName);
 		}
 		book.setTitle(request.getParameter("title"));
 		book.setRetprice(Double.valueOf(request.getParameter("price")));
