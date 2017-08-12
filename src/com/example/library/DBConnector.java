@@ -33,6 +33,31 @@ public class DBConnector {
 		}	
 	}
 	
+	public List<BOOK> getGnBOOKS(String genre){
+		List<BOOK> Itlist=new ArrayList<BOOK>();
+		Statement stmt;
+		ResultSet rs;
+		try {
+			stmt=connection.createStatement();
+			rs=stmt.executeQuery("select bid,imgpath,title,description,genre from book;");
+			while(rs.next()){
+				if(rs.getString(5).contains(genre)) {
+					BOOK it=new BOOK();
+					it.setBid(rs.getInt(1));
+					it.setImgpath(rs.getString(2));
+					it.setTitle(rs.getString(3));
+					it.setDescription(rs.getString(4));
+					Itlist.add(it);
+				}
+			}
+			rs.close();
+			stmt.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return Itlist;
+	}
+	
 	public List<BOOK> getBOOKS(){
 		List<BOOK> Itlist=new ArrayList<BOOK>();
 		Statement stmt;
@@ -74,8 +99,10 @@ public class DBConnector {
 				book.setDescription(rs.getString(8));
 				book.setGenre(rs.getString(9));
 			}
+			stmt.close();
+			rs.close();
 		}catch(SQLException e) {
-			
+			e.printStackTrace();
 		}
 		return book;
 	}
