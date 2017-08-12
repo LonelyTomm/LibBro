@@ -41,7 +41,6 @@
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="functitems">
 						<a href="./add.jsp">Add</a>
-						<a href="#">Modify</a>
 						<a href="#">Query</a>
 					</div>
 				</div>
@@ -69,6 +68,17 @@
 			DBConnector db=new DBConnector();
 			db.connect();
 			List<BOOK> blist=db.getBOOKS();
+			String Strpage=request.getParameter("page");
+			int inpage=1;
+			if(Strpage!=null){
+				try{
+					inpage=Integer.parseInt(Strpage);
+					int pgCount=inpage%16;
+				}catch(NumberFormatException e){
+					request.setAttribute("message","Attribute page is in wrong format. It must be int number.");
+					request.getRequestDispatcher("/error.jsp").forward(request,response);
+				}
+			}
 			if(blist!=null){
 				for(int i=0;i<blist.size();i++){
 					if(((i+1)%5==0)||(i==0)){

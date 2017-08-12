@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.example.library.BOOK" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +18,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4 text-center">
-					<a href="./index.jsp" id="logo"><h1>LibBro</h1></a>
+					<a href="#" id="logo"><h1>LibBro</h1></a>
 				</div>
 				<div class="col-md-4 text-center">
 					<form action="" class="searchlog">
@@ -39,7 +40,7 @@
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="functitems">
-						<a href="./add.jsp">Add</a>
+						<a href="#">Add</a>
 						<a href="#">Query</a>
 					</div>
 				</div>
@@ -63,8 +64,35 @@
 					</div>
 				</div>
 				<div class="col-md-9">
-					<h1><%= request.getAttribute("message") %></h1>
-					<h1><%= request.getAttribute("ext") %></h1>
+					<%
+						BOOK book=(BOOK)request.getAttribute("book");
+						if(book!=null){
+					%>
+					
+					<div class="row">
+						<div class="col-md-3 text-center">
+							<img src="http://localhost:8080/LibBro/imageHandle?img=<%= book.getImgpath() %>" alt="book">
+						</div>
+						<div class="col-md-9">
+							<div class="desc-span">
+								<span>Title of Book: <%= book.getTitle() %></span><br>
+								<span>Description: <%= book.getDescription() %></span><br>
+								<span>Author: <%= book.getAuthor() %></span><br>
+								<span>Retail Price: <%= book.getRetprice() %>$</span><br>
+								<span>Publisher: <%= book.getPublisher() %></span><br>
+								<span>Quantity: <%= book.getQuantity() %></span><br>
+								<span>Genre: <%= book.getGenre() %></span><br>
+							</div>
+						</div>
+					</div>
+					
+					<%		
+						}else{
+					%>
+						<span>Book not found!</span>
+					<% 
+						}
+					%>
 				</div>
 			</div>
 		</div>

@@ -56,6 +56,30 @@ public class DBConnector {
 		return Itlist;
 	}
 	
+	public BOOK getBOOK(int bid) {
+		BOOK book=new BOOK();
+		Statement stmt;
+		ResultSet rs;
+		try {
+			stmt=connection.createStatement();
+			rs=stmt.executeQuery("select * from book where bid="+bid+";");
+			if(rs.next()) {
+				book.setBid(rs.getInt(1));
+				book.setImgpath(rs.getString(2));
+				book.setTitle(rs.getString(3));
+				book.setRetprice(rs.getDouble(4));
+				book.setPublisher(rs.getString(5));
+				book.setQuantity(rs.getInt(6));
+				book.setAuthor(rs.getString(7));
+				book.setDescription(rs.getString(8));
+				book.setGenre(rs.getString(9));
+			}
+		}catch(SQLException e) {
+			
+		}
+		return book;
+	}
+	
 	public void addBOOK(BOOK book) {
 		PreparedStatement stmt;
 		try {

@@ -40,7 +40,6 @@
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="functitems">
 						<a href="./add.jsp">Add</a>
-						<a href="#">Modify</a>
 						<a href="#">Query</a>
 					</div>
 				</div>

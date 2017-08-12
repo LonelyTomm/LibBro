@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+ <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<title>Library Management</title>
@@ -36,11 +36,10 @@
 	</div>
 	<div class="functnav">
 		<div class="container">
-			<div class="row">
+            <div class="row">
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="functitems">
-						<a href="./add.jsp">Add</a>
-						<a href="#">Modify</a>
+						<a href="./add.jsp">Add</a>             
 						<a href="#">Query</a>
 					</div>
 				</div>

@@ -115,6 +115,11 @@ body{
 	margin-top: 17px;
 }
 /*add page end*/
+/*description page starts*/
+.desc-span>span{
+	font-size: 18pt;
+}
+/*description page ends*/
 /*content-body end*/
 
 /*footer start*/
