@@ -51,15 +51,15 @@
 			<div class="row">
 				<div class="col-md-3">
 					<div class="sidebar-menu">
-						<a href="#">History</a><br>
-						<a href="#">Thriller</a><br>
-						<a href="#">Romance/Erotica</a><br>
-						<a href="#">Satire</a><br>
-						<a href="#">Horror</a><br>
-						<a href="#">Religious/Inspirational</a><br>
-						<a href="#">Health/Medicine</a><br>
-						<a href="#">Children's books</a><br>
-						<a href="#">Dictionary</a><br>
+						<a href="./Genre?gn=History">History</a><br>
+						<a href="./Genre?gn=Thriller">Thriller</a><br>
+						<a href="./Genre?gn=Romance">Romance/Erotica</a><br>
+						<a href="./Genre?gn=Satire">Satire</a><br>
+						<a href="./Genre?gn=Horror">Horror</a><br>
+						<a href="./Genre?gn=Religious">Religious/Inspirational</a><br>
+						<a href="./Genre?gn=Health">Health/Medicine</a><br>
+						<a href="./Genre?gn=Children">Children's books</a><br>
+						<a href="./Genre?gn=Dictionary">Dictionary</a><br>
 					</div>
 				</div>
 				<div class="col-md-9">
