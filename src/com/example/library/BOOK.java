@@ -1,5 +1,8 @@
 package com.example.library;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class BOOK {
 	private int bid;
 	private String imgpath;

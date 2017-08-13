@@ -64,13 +64,14 @@ public class DBConnector {
 		ResultSet rs;
 		try{
 			stmt=connection.createStatement();
-			rs=stmt.executeQuery("select bid,imgpath,title,description from book;");
+			rs=stmt.executeQuery("select bid,imgpath,title,description,quantity from book;");
 			while(rs.next()){
 				BOOK it=new BOOK();
 				it.setBid(rs.getInt(1));
 				it.setImgpath(rs.getString(2));
 				it.setTitle(rs.getString(3));
 				it.setDescription(rs.getString(4));
+				it.setQuantity(rs.getInt(5));
 				Itlist.add(it);
 			}
 			rs.close();
@@ -105,6 +106,22 @@ public class DBConnector {
 			e.printStackTrace();
 		}
 		return book;
+	}
+	
+	public String addBORRBOOK(BORRBOOK bbook) {
+		PreparedStatement stmt;
+		try {
+			stmt=connection.prepareStatement("insert into borrbook(studname,studno,returndate,borrowdate,bookid) values(?,?,?,?,?);");
+			stmt.setString(1, bbook.getStudname());
+			stmt.setInt(2, bbook.getStudno());
+			stmt.setString(3, bbook.getReturndate());
+			stmt.setString(4, bbook.getBorrowdate());
+			stmt.setInt(5, bbook.getBookid());
+			return "Succesfully";
+		}catch(SQLException e) {
+			e.printStackTrace();
+			return "Failed"+e.toString();
+		}
 	}
 	
 	public void addBOOK(BOOK book) {
