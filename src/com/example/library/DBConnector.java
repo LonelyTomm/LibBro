@@ -33,6 +33,26 @@ public class DBConnector {
 		}	
 	}
 	
+	public void modBook(BOOK book) {
+		PreparedStatement stmt;
+		try {
+			stmt=connection.prepareStatement("update book set imgpath=?,title=?,retprice=?,publisher=?,quantity=?,author=?,description=?,genre=? where bid=?;");
+			stmt.setString(1, book.getImgpath());
+			stmt.setString(2, book.getTitle());
+			stmt.setDouble(3, book.getRetprice());
+			stmt.setString(4, book.getPublisher());
+			stmt.setInt(5, book.getQuantity());
+			stmt.setString(6, book.getAuthor());
+			stmt.setString(7, book.getDescription());
+			stmt.setString(8, book.getGenre());
+			stmt.setInt(9, book.getBid());
+			stmt.executeUpdate();
+			stmt.close();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<BOOK> getGnBOOKS(String genre){
 		List<BOOK> Itlist=new ArrayList<BOOK>();
 		Statement stmt;

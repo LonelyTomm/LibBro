@@ -16,40 +16,30 @@ import javax.servlet.http.Part;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 
-/**
- * Servlet implementation class FileUpload
- */
-@WebServlet(
-        name = "FileUpload",
-        urlPatterns = "/FileUpload"
-)
+
+@WebServlet("/ApplyModifToDb")
 @MultipartConfig
-public class FileUpload extends HttpServlet {
+public class ApplyModifToDb extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FileUpload() {
+    
+    public ApplyModifToDb() {
         super();
-        // TODO Auto-generated constructor stub
+        
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		final String dirup="/home/vsevolod/ProgramFiles/apache-tomcat-8.5.16/webapps/data";
 		Part filePart=request.getPart("file");
 		BOOK book=new BOOK();
+		book.setBid(Integer.parseInt(request.getParameter("id")));
 		if(filePart!=null) {
 			String fileName=Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
 			InputStream fileContent=filePart.getInputStream();
@@ -81,12 +71,9 @@ public class FileUpload extends HttpServlet {
 		book.setGenre(genre);
 		DBConnector dbs=new DBConnector();
 		dbs.connect();
-		dbs.addBOOK(book);
-		request.setAttribute("message", "Added successfully!");
+		dbs.modBook(book);
+		request.setAttribute("message", "Modified successfully!");
 		request.getRequestDispatcher("/success.jsp").forward(request, response);
-		
 	}
-	
-	
 
 }

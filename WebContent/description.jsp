@@ -22,7 +22,7 @@
 				</div>
 				<div class="col-md-4 text-center">
 					<form action="" class="searchlog">
-						<input type="text">
+						<input type="text" required>
 						<button>Find!</button>
 					</form>
 				</div>
@@ -40,7 +40,7 @@
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="functitems">
-						<a href="#">Add</a>
+						<a href="./add.jsp">Add</a>
 						<a href="#">Query</a>
 					</div>
 				</div>
@@ -84,6 +84,9 @@
 								<span>Genre: <%= book.getGenre() %></span><br>
 							</div>
 						</div>
+					</div>
+					<div class="row text-center">
+						<a id="ModButt" href="http://localhost:8080/LibBro/Modify?id=<%= book.getBid() %>">Modify</a>
 					</div>
 					
 					<%		

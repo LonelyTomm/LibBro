@@ -22,7 +22,7 @@
 				</div>
 				<div class="col-md-4 text-center">
 					<form action="" class="searchlog">
-						<input type="text">
+						<input type="text" required>
 						<button>Find!</button>
 					</form>
 				</div>

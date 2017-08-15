@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.example.library.DBConnector,com.example.library.*,java.util.List,java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -63,32 +64,71 @@
 					</div>
 				</div>
 				<div class="col-md-9">
-					<form action="FileUpload" method="post" enctype="multipart/form-data"
+					<%
+						BOOK book=(BOOK)request.getAttribute("book");
+						if(book.getTitle()!=null){
+					%>
+					<form action="ApplyModifToDb" method="post" enctype="multipart/form-data"
 					class="addbookform">			
 						<input type="file" accept="image/*" name="file">
+      					<input type="hidden" name="id" value="<%= book.getBid() %>" required><br>
       					<span>Book title:</span><br>
-      					<input type="text" name="title" required><br>
+      					<input type="text" name="title" value="<%= book.getTitle() %>" required><br>
       					<span>Retail price($):</span><br>
-      					<input type="number" name="price" step="0.1" required><br>
+      					<input type="number" name="price" step="0.1" value="<%= book.getRetprice() %>" required><br>
       					<span>Publisher:</span><br>
-      					<input type="text" name="publisher" required><br>
+      					<input type="text" name="publisher" value="<%= book.getPublisher() %>" required><br>
       					<span>Quantity:</span><br>
-      					<input type="number" name="quantity" required><br>
+      					<input type="number" name="quantity" value="<%= book.getQuantity() %>" required><br>
       					<span>Author:</span><br>
-      					<input type="text" name="author" required><br>
+      					<input type="text" name="author" value="<%= book.getAuthor() %>" required><br>
       					<span>Description:</span><br>
-      					<input type="text" name="description" required><br>
-      					<input type="checkbox" name="genreB" value="History"><span>History</span>
-      					<input type="checkbox" name="genreB" value="Thriller"><span>Thriller</span>
-      					<input type="checkbox" name="genreB" value="Romance/Erotica"><span>Romance/Erotica</span>
-      					<input type="checkbox" name="genreB" value="Satire"><span>Satire</span>
-      					<input type="checkbox" name="genreB" value="Horror"><span>Horror</span><br>
-      					<input type="checkbox" name="genreB" value="Religious/Inspirational"><span>Religious/Inspirational</span>
-      					<input type="checkbox" name="genreB" value="Health/Medicine"><span>Health/Medicine</span>
-      					<input type="checkbox" name="genreB" value="Children's books"><span>Children's books</span>
-      					<input type="checkbox" name="genreB" value="Dictionary"><span>Dictionary</span><br>
-  						<input type="submit" value="Add Book">
+      					<input type="text" name="description" value="<%= book.getDescription() %>" required><br>
+      					<%
+      						List<String> allGenres=new ArrayList<String>();
+      						allGenres.add("History");
+      						allGenres.add("Thriller");
+      						allGenres.add("Romance/Erotica");
+      						allGenres.add("Satire");
+      						allGenres.add("Horror");
+      						allGenres.add("Religious/Inspirational");
+      						allGenres.add("Health/Medicine");
+      						allGenres.add("Children's books");
+      						allGenres.add("Dictionary");
+      						String[] chGenres=null;
+      						if(book.getGenre()!=null){
+      							chGenres=book.getGenre().split(";");
+      							for(int i=0;i<chGenres.length;i++){
+      								%>
+      									<input type="checkbox" name="genreB" value="<%= chGenres[i]%>" checked="true"><span><%= chGenres[i]%></span>
+      								<%
+      								if(i==4){
+      									%>
+      									<br/>
+      								<%	
+      								}
+      								allGenres.remove(chGenres[i]);
+      							}
+      						}
+      						for(int i=0;i<allGenres.size();i++){
+      						%>
+      							<input type="checkbox" name="genreB" value="<%= allGenres.get(i) %>"><span><%= allGenres.get(i) %></span>
+      						<%
+      							if((i==(allGenres.size()-1))||(8-(allGenres.size()-1)+i==4)){
+      								%>
+      									<br/>
+      								<% 
+      							}
+      						}
+      					%>
+  						<input type="submit" value="Modify Book">
 					</form>
+					<% 
+						}else{
+							request.setAttribute("message","Error!Nothing has been passed!");
+							request.getRequestDispatcher("/error.jsp").forward(request, response);
+						}
+					%>
 				</div>
 			</div>
 		</div>

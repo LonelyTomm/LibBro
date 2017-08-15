@@ -119,6 +119,18 @@ body{
 .desc-span>span{
 	font-size: 18pt;
 }
+#ModButt{
+	color: white;
+	text-decoration: none;
+	font-size: 18pt;
+	background-color: #6a756e;
+	padding: 8px 10px;
+	border-radius: 26px;
+	
+}
+#ModButt:hover{
+	color: #6ffccf;
+}
 /*description page ends*/
 /*content-body end*/
 
