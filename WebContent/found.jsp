@@ -62,20 +62,36 @@
 				<div class="col-md-9">
 						<%
 			List<BOOK> blist=(List<BOOK>)request.getAttribute("foundList");
-			String Strpage=request.getParameter("page");
+			String Strpage=(String)request.getParameter("page");
 			int inpage=1;
+			int firstBook=0;
 			if(Strpage!=null){
 				try{
 					inpage=Integer.parseInt(Strpage);
-					int pgCount=inpage%16;
+					int pgCount=(blist.size()-1)/16;
+					if((blist.size()-1)>(pgCount*16))
+						pgCount++;
+					if(inpage<=pgCount){
+						if(inpage==1){
+							firstBook=0;
+						}else{
+							firstBook=((inpage-1)*16);
+						}	
+					}
 				}catch(NumberFormatException e){
 					request.setAttribute("message","Attribute page is in wrong format. It must be int number.");
 					request.getRequestDispatcher("/error.jsp").forward(request,response);
+				}finally{
+					
 				}
 			}
 			if(blist!=null){
-				for(int i=0;i<blist.size();i++){
-					if(((i+1)%5==0)||(i==0)){
+				int lastElement=firstBook+16;
+				if(firstBook+16>blist.size()){
+					lastElement=blist.size();
+				}
+				for(int i=firstBook;i<blist.size();i++){
+					if(((i+1)%4==0)||(i==0)){
 						%>
 							<div class="row">
 						<%
@@ -105,11 +121,16 @@
 					<div class="row">
 						<div class="col-md-12 text-center">
 							<div class="page-nav-butt">
-								<a href="#">1</a>
-								<a href="#">2</a>
-								<a href="#">3</a>
-								<a href="#">4</a>
-								<a href="#">5</a>
+								<%
+								int pgCount=(blist.size()-1)/16;
+								if((blist.size()-1)>(pgCount*16))
+									pgCount++;
+								for(int i=0;i<pgCount;i++){
+								%>
+									<a href="http://localhost:8080/LibBro/found.jsp?page=<%= i+1 %>"><%= i+1 %></a>
+								<% 
+								}
+								%>
 							</div>
 						</div>
 					</div>

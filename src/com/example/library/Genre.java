@@ -29,6 +29,9 @@ public class Genre extends HttpServlet {
 			List<BOOK> bookls=dbcon.getGnBOOKS(genre);
 			if(bookls!=null) {
 				request.setAttribute("booklist", bookls);
+				String pg=request.getParameter("page");
+				request.setAttribute("page",pg );
+				request.setAttribute("genre", genre);
 				request.getRequestDispatcher("/genre.jsp").forward(request, response);
 			}else {
 				request.setAttribute("message", "No books with that genre!");
