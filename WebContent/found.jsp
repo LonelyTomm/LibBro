@@ -61,7 +61,7 @@
 				</div>
 				<div class="col-md-9">
 						<%
-			List<BOOK> blist=(List<BOOK>)request.getAttribute("booklist");
+			List<BOOK> blist=(List<BOOK>)request.getAttribute("foundList");
 			String Strpage=request.getParameter("page");
 			int inpage=1;
 			if(Strpage!=null){

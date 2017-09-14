@@ -78,6 +78,49 @@ public class DBConnector {
 		return Itlist;
 	}
 	
+	public List<String> getLogs(){
+		List<String> LogList=new ArrayList<String>();
+		Statement stmt;
+		ResultSet rs;
+		try {
+			stmt=connection.createStatement();
+			rs=stmt.executeQuery("select * from borrbook order by borrowdate;");
+			while(rs.next()) {
+				String logString=rs.getString(5)+" "+rs.getString(3)+" "+rs.getString(2)+" borrowed book with ID "+rs.getString(6);
+				LogList.add(logString);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return LogList;
+	}
+	
+	public List<BOOK> getFindBooks(String searchQuery){
+		List<BOOK> Itlist=new ArrayList<BOOK>();
+		Statement stmt;
+		ResultSet rs;
+		try{
+			stmt=connection.createStatement();
+			rs=stmt.executeQuery("select bid,imgpath,title,description,quantity,author from book;");
+			while(rs.next()){
+				BOOK it=new BOOK();
+				it.setBid(rs.getInt(1));
+				it.setImgpath(rs.getString(2));
+				it.setTitle(rs.getString(3));
+				it.setDescription(rs.getString(4));
+				it.setQuantity(rs.getInt(5));
+				it.setAuthor(rs.getString(6));
+				if(it.getTitle().toLowerCase().contains(searchQuery.toLowerCase())||it.getAuthor().toLowerCase().contains(searchQuery.toLowerCase()))
+					Itlist.add(it);
+			}
+			rs.close();
+			stmt.close();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return Itlist;
+	}
+	
 	public List<BOOK> getBOOKS(){
 		List<BOOK> Itlist=new ArrayList<BOOK>();
 		Statement stmt;
@@ -137,6 +180,8 @@ public class DBConnector {
 			stmt.setString(3, bbook.getReturndate());
 			stmt.setString(4, bbook.getBorrowdate());
 			stmt.setInt(5, bbook.getBookid());
+			stmt.executeUpdate();
+			stmt.close();
 			return "Succesfully";
 		}catch(SQLException e) {
 			e.printStackTrace();

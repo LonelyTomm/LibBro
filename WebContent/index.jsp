@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.example.library.DBConnector,com.example.library.*,java.util.List,java.util.ArrayList" %>
+<%@ page import="com.example.library.*,java.util.List,java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,16 +21,12 @@
 					<a href="./index.jsp" id="logo"><h1>LibBro</h1></a>
 				</div>
 				<div class="col-md-4 text-center">
-					<form action="" class="searchlog">
-						<input type="text" required>
+					<form action="Find" class="searchlog" method="POST">
+						<input type="text" name="searchQuery" required>
 						<button>Find!</button>
 					</form>
 				</div>
 				<div class="col-md-4 text-center">
-					<div class="topnav">
-						<a href="#">Log in</a>
-						<a href="#">New User</a>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -41,7 +37,7 @@
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="functitems">
 						<a href="./add.jsp">Add</a>
-						<a href="#">Query</a>
+						<a href="./logs.jsp">Borrow Log</a>
 					</div>
 				</div>
 			</div>
@@ -70,18 +66,34 @@
 			List<BOOK> blist=db.getBOOKS();
 			String Strpage=request.getParameter("page");
 			int inpage=1;
+			int firstBook=0;
 			if(Strpage!=null){
 				try{
 					inpage=Integer.parseInt(Strpage);
-					int pgCount=inpage%16;
+					int pgCount=(blist.size()-1)/16;
+					if((blist.size()-1)>(pgCount*16))
+						pgCount++;
+					if(inpage<=pgCount){
+						if(inpage==1){
+							firstBook=0;
+						}else{
+							firstBook=((inpage-1)*16);
+						}	
+					}
 				}catch(NumberFormatException e){
 					request.setAttribute("message","Attribute page is in wrong format. It must be int number.");
 					request.getRequestDispatcher("/error.jsp").forward(request,response);
+				}finally{
+					
 				}
 			}
 			if(blist!=null){
-				for(int i=0;i<blist.size();i++){
-					if(((i+1)%5==0)||(i==0)){
+				int lastElement=firstBook+16;
+				if(firstBook+16>blist.size()){
+					lastElement=blist.size();
+				}
+				for(int i=firstBook;i<lastElement;i++){
+					if(((i+1)%4==0)||(i==0)){
 						%>
 							<div class="row">
 						<%
@@ -111,11 +123,16 @@
 					<div class="row">
 						<div class="col-md-12 text-center">
 							<div class="page-nav-butt">
-								<a href="#">1</a>
-								<a href="#">2</a>
-								<a href="#">3</a>
-								<a href="#">4</a>
-								<a href="#">5</a>
+								<%
+								int pgCount=(blist.size()-1)/16;
+								if((blist.size()-1)>(pgCount*16))
+									pgCount++;
+								for(int i=0;i<pgCount;i++){
+								%>
+									<a href="http://localhost:8080/LibBro/index.jsp?page=<%= i+1 %>"><%= i+1 %></a>
+								<% 
+								}
+								%>
 							</div>
 						</div>
 					</div>

@@ -21,16 +21,12 @@
 					<a href="./index.jsp" id="logo"><h1>LibBro</h1></a>
 				</div>
 				<div class="col-md-4 text-center">
-					<form action="" class="searchlog">
-						<input type="text" required>
+					<form action="Find" class="searchlog" method="POST">
+						<input type="text" name="searchQuery" required>
 						<button>Find!</button>
 					</form>
 				</div>
 				<div class="col-md-4 text-center">
-					<div class="topnav">
-						<a href="#">Log in</a>
-						<a href="#">New User</a>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -41,7 +37,7 @@
 				<div class="col-md-6 col-md-offset-3 text-center">
 					<div class="functitems">
 						<a href="./add.jsp">Add</a>
-						<a href="#">Query</a>
+						<a href="./logs.jsp">Borrow Log</a>
 					</div>
 				</div>
 			</div>

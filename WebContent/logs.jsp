@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.example.library.DBConnector,com.example.library.*,java.util.List,java.util.ArrayList" %>
+<%@ page import="com.example.library.*,java.util.List,java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -60,59 +60,18 @@
 					</div>
 				</div>
 				<div class="col-md-9">
-						<%
-			List<BOOK> blist=(List<BOOK>)request.getAttribute("booklist");
-			String Strpage=request.getParameter("page");
-			int inpage=1;
-			if(Strpage!=null){
-				try{
-					inpage=Integer.parseInt(Strpage);
-					int pgCount=inpage%16;
-				}catch(NumberFormatException e){
-					request.setAttribute("message","Attribute page is in wrong format. It must be int number.");
-					request.getRequestDispatcher("/error.jsp").forward(request,response);
-				}
-			}
-			if(blist!=null){
-				for(int i=0;i<blist.size();i++){
-					if(((i+1)%5==0)||(i==0)){
-						%>
-							<div class="row">
-						<%
-					}
-					BOOK book=new BOOK();
-					book=blist.get(i);
-					%>
-						<div class="col-md-3 text-center">
-							<div class="bookprof">
-								<a href="http://localhost:8080/LibBro/desc?id=<%= book.getBid() %>">
-									<img src="http://localhost:8080/LibBro/imageHandle?img=<%= book.getImgpath() %>" alt="Book">
-								</a><br>
-								<a href="http://localhost:8080/LibBro/desc?id=<%= book.getBid() %>" id="title"><%= book.getTitle() %></a><br>
-								<span><%= book.getDescription() %></span>
-							</div>
-						</div>
 					<%
-					if(((i+1)%4==0)||(i==blist.size())){
-						%>
-							</div>
-						<%
-					}
-				}
-			}
-		%>
-					
-					<div class="row">
-						<div class="col-md-12 text-center">
-							<div class="page-nav-butt">
-								<a href="#">1</a>
-								<a href="#">2</a>
-								<a href="#">3</a>
-								<a href="#">4</a>
-								<a href="#">5</a>
-							</div>
-						</div>
-					</div>
+						DBConnector dbconn=new DBConnector();
+						dbconn.connect();
+						List<String> listLogs=dbconn.getLogs();
+						if(listLogs!=null){
+							for(int i=0;i<listLogs.size();i++){
+							%>
+								<span><%= listLogs.get(i) %></span><br>
+							<%
+							}
+						}
+					%>
 				</div>
 			</div>
 		</div>
